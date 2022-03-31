@@ -10,4 +10,5 @@ add a job in Crontab to check connection every 5 minutes
 Open Crontab editor:
 $ crontab -e
 Add a new line:
+
 */5 * * * * python3 reboot_quectel.py
