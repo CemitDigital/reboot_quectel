@@ -21,7 +21,7 @@ if __name__ == '__main__':
             quit()
         elif response != 0:
             fail_count += 1
-            print("Ping failed=" + str(fail_count))
+            print("Ping failed times=" + str(fail_count))
         if fail_count >= 20:
             print("Rebooting Queltec LTE")
             reboot_sixfab()
