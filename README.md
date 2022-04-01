@@ -11,4 +11,4 @@ Open Crontab editor:
 $ crontab -e
 Add a new line:
 
-*/10 * * * * python3 reboot_quectel.py
+*/5 * * * * python3 reboot_quectel.py
