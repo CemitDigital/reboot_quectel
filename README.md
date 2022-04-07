@@ -13,6 +13,6 @@ Add a new line:
 
 */5 * * * * python3 reboot_quectel.py
 
-To test of string is sent over serial. Run the reboot_quectel_now.py script:
+To test if string is sent over serial. Run the reboot_quectel_now.py script:
 
 $ python3 reboot_quectel_now.py
