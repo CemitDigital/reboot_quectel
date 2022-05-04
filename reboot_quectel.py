@@ -2,28 +2,48 @@ import os
 import time
 import serial
 
+from datetime import datetime
+
 portwrite = "/dev/ttyUSB2"
 fail_count = 0
 
 
 def reboot_sixfab():
-    ser = serial.Serial(portwrite, baudrate=115200, timeout=5, rtscts=True, dsrdtr=True)
-    ser.write("AT+CFUN=1,1\r\n".encode())
-    ser.close()
+    try:
+        ser = serial.Serial(portwrite, baudrate=115200, timeout=5, rtscts=True, dsrdtr=True)
+        ser.write("AT+CFUN=1,1\r\n".encode())
+        ser.close()
+        print(datetime.now(), "Sending AT+FUN=1,1 successful.")
+    except:
+        print(datetime.now(), "Sending AT+FUN=1,1 failed")
+
+def power_cycle_usb():
+    try:
+        os.system("sudo uhubctl -l 1-1 -a 2")
+        print(datetime.now(), "Power cycle USB successful.")
+    except:
+        print(datetime.now(), "Power cycle USB failed")
+
 
 
 if __name__ == '__main__':
+    print(datetime.now(), "Starting reboot_quectel.py")
     while True:
         response = os.system("ping -c 2 -I wwan0 8.8.8.8")
-        print(response)
         if response == 0:
-            print("Ping successful. Quitting.")
+            print(datetime.now(), "Ping successful. Quitting.")
             quit()
-        elif response != 0:
+        else:
             fail_count += 1
-            print("Ping failed times=" + str(fail_count))
-        if fail_count >= 10:
-            print("Rebooting Queltec LTE")
+            print(datetime.now(), "Ping failed times=" + str(fail_count))
+        if fail_count == (10 or 20):
+            print(datetime.now(), "Rebooting Queltec LTE.")
             reboot_sixfab()
+            time.sleep(40)
+        if fail_count >= 30:
+            print(datetime.now(), "Power cycling USB")
+            #Power cycle all USB port on RPi 4B
+            power_cycle_usb()
+            time.sleep(180)
             quit()
         time.sleep(10)
