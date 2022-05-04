@@ -1,18 +1,15 @@
 # reboot_quectel
-Python3 script to reboot Quectel LTE of connection drops
+Python3 script to reboot and Quectel LTE and power cycle USB hub when connection drops
 
 You need:
 Python3
+run-one
 pyserial
 
 add a job in Crontab to check connection every 5 minutes
 
 Open Crontab editor:
-$ crontab -e
+$ sudo crontab -e
 Add a new line:
 
-*/5 * * * * python3 reboot_quectel.py
-
-To test if string is sent over serial. Run the reboot_quectel_now.py script:
-
-$ python3 reboot_quectel_now.py
+*/1 * * * * bash /home/cemit/run-one/run-one python3 /home/cemit/reboot_quectel.py >> /home/cemit/reboot_quectel.py.log
