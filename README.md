@@ -5,6 +5,7 @@ You need:
 Python3
 run-one
 pyserial
+uhubctl
 
 add a job in Crontab to check connection every 5 minutes
 
