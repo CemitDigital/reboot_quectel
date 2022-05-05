@@ -36,11 +36,23 @@ if __name__ == '__main__':
         else:
             fail_count += 1
             print(datetime.now(), "Ping failed times=" + str(fail_count))
-        if fail_count == (10 or 20):
-            print(datetime.now(), "Rebooting Queltec LTE.")
-            reboot_sixfab()
+        if fail_count == (20):
+            print(datetime.now(), "Restarting qmi_reconnect service.")
+            os.system("sudo service qmi_reconnect restart")
             time.sleep(40)
-        if fail_count >= 30:
+        if fail_count == (35):
+            print(datetime.now(), "Restarting qmi_reconnect service.")
+            os.system("sudo service qmi_reconnect restart")
+            time.sleep(40)
+        if fail_count == (50):
+            print(datetime.now(), "Restarting qmi_reconnect service.")
+            os.system("sudo service qmi_reconnect restart")
+            time.sleep(40)
+#        if fail_count == (35):
+#            print(datetime.now(), "Rebooting Queltec LTE.")
+#            reboot_sixfab()
+#            time.sleep(40)            
+        if fail_count >= 70:
             print(datetime.now(), "Power cycling USB")
             #Power cycle all USB port on RPi 4B
             power_cycle_usb()
