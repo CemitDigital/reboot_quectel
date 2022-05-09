@@ -24,6 +24,31 @@ def power_cycle_usb():
     except:
         print(datetime.now(), "Power cycle USB failed")
 
+def restart_quectel_CM():
+    try:
+        print(datetime.now(), "Starting restart of quectel-CM.")
+        quectel-PID=os.system("pgrep quectel-CM")
+        os.system("kill -INT quectel-PID")
+        os.system("wait quectel-PID")
+        os.system("/home/cemit/qmi/quectel-CM/quectel-CM -s internet.public")
+        print(datetime.now(), "Restart of quectel-CM done.")
+    except:
+        print(datetime.now(), "Restarting of quectel-CM failed.")
+        
+def restart_quectel_CM():
+    try:
+        print(datetime.now(), "Starting restart of quectel-CM.")
+        PID = pgrep.pgrep("quectel-CM")
+#        print(PID[0])
+        PID1=PID[0]
+#        print(PID1)
+        os.system(f"sudo kill -INT {PID1}")
+        os.system(f"sudo wait {PID1}")
+        time.sleep(10)
+        os.system("/home/cemit/qmi/quectel-CM/quectel-CM -s internet.public")
+        print(datetime.now(), "Restart of quectel-CM done.")
+    except:
+        print(datetime.now(), "Restarting of quectel-CM failed.")
 
 
 if __name__ == '__main__':
@@ -36,17 +61,22 @@ if __name__ == '__main__':
         else:
             fail_count += 1
             print(datetime.now(), "Ping failed times=" + str(fail_count))
+
+
         if fail_count == (20):
-            print(datetime.now(), "Restarting qmi_reconnect service.")
-            os.system("sudo service qmi_reconnect restart")
+            restart_quectel_CM()
             time.sleep(40)
+
+
+#        if fail_count == (20):
+#            print(datetime.now(), "Restarting qmi_reconnect service.")
+#            os.system("sudo service qmi_reconnect restart")
+#            time.sleep(40)
         if fail_count == (35):
-            print(datetime.now(), "Restarting qmi_reconnect service.")
-            os.system("sudo service qmi_reconnect restart")
+            restart_quectel_CM()
             time.sleep(40)
         if fail_count == (50):
-            print(datetime.now(), "Restarting qmi_reconnect service.")
-            os.system("sudo service qmi_reconnect restart")
+            restart_quectel_CM()
             time.sleep(40)
 #        if fail_count == (35):
 #            print(datetime.now(), "Rebooting Queltec LTE.")
