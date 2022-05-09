@@ -60,7 +60,7 @@ if __name__ == '__main__':
             restart_quectel_CM()
         if fail_count == (50):
             restart_quectel_CM()
-           
+
         if fail_count >= 70:
             #Power cycle all USB port on RPi 4B
             power_cycle_usb()
