@@ -6,7 +6,7 @@ from datetime import datetime
 
 portwrite = "/dev/ttyUSB2"
 fail_count = 0
-
+#test
 
 def reboot_quectel():
     #Send AT command over UART to reboot Quectel EC25 PCIe module
