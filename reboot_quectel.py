@@ -67,7 +67,7 @@ if __name__ == '__main__':
         if fail_count == (60):
             restart_quectel_CM()
         if fail_count >= 80:
-            
+
             power_cycle_usb()
             quit()
         time.sleep(10)
